@@ -21,14 +21,23 @@ fdir=' '.join(arg[1:])
 def listaudiofiles(root=os.getcwd()):
 	for path, dirs, files in os.walk(root):		
 		for name in files:
-			yield os.path.join(path,name)
+			yield os.path.abspath(os.path.join(path,name))
 ################################################
 
 if len(arg)==1:
 	#fdir=cwd
 	#print "print searching for audio in %s" % cwd
 	print "specify directory"
-	
+
+playlistname=raw_input("\nname for playlist? (defualt is playlist)\n")
+
+#choose to name resulting playlist file
+if not playlistname:
+	pass
+else:
+	playlist=open(playlistname+".m3u",'a')
+
+
 for f in listaudiofiles(fdir):	
 	ext=os.path.splitext(f)
 	for format in aformats: 
